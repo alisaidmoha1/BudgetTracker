@@ -54,11 +54,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Budget.Data\Budget.Data.csproj">
+      <Project>{3cc43015-d267-426f-b6ed-5eb1bbd4984c}</Project>
+      <Name>Budget.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Budget.Models\Budget.Models.csproj">
+      <Project>{77f83d0d-1552-46aa-ada9-cb9c9d1dfa7e}</Project>
+      <Name>Budget.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

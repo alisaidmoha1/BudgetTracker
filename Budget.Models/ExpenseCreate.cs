@@ -10,6 +10,7 @@ namespace Budget.Models
 {
     public class ExpenseCreate
     {
+        public int CategoryId { get; set; }
         [Required]
         public SelectList Categories { get; set; }
         [Required]

@@ -15,6 +15,8 @@ namespace Budget.Data
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
         [Required]
+        public Guid UserId { get; set; }
+        [Required]
         public DateTimeOffset CreatedUtc { get; set; }
         [Required]
         public decimal Amount { get; set; }

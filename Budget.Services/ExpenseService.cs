@@ -48,7 +48,7 @@ namespace Budget.Services
                         .Select(
                             e =>
                                 new ExpenseListItem
-                                {
+                                {   ExpenseId = e.ExpenseId,
                                     CategoryName = e.Category.CategoryName,
                                     CreatedUtc = e.CreatedUtc,
                                     Amount = e.Amount
@@ -56,6 +56,58 @@ namespace Budget.Services
 
                         ); ;
                 return query.ToArray();
+            }
+        }
+
+        public bool UpdateExpense(ExpenseEdit model)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Expenses
+                        .Single(c => c.ExpenseId == model.ExpenseId && c.UserId == _userId);
+
+                entity.CategoryId = model.CategoryId;
+                entity.CreatedUtc = entity.CreatedUtc;
+                entity.Amount = entity.Amount;
+                entity.IsRepeat = model.IsRepeat;
+                entity.Note = entity.Note;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public ExpenseEdit GetExpenseById(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Expenses
+                        .Single(c => c.ExpenseId == id && c.UserId == _userId);
+                return
+                    new ExpenseEdit
+                    {
+                        CategoryId = entity.CategoryId,
+                        CreatedUtc = entity.CreatedUtc,
+                        Amount = entity.Amount,
+                        IsRepeat = entity.IsRepeat,
+                        Note = entity.Note
+                    };
+            }
+        }
+
+        public bool DeleteExpense(int catId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Expenses
+                        .Single(c => c.ExpenseId == catId && c.UserId == _userId);
+                ctx.Expenses.Remove(entity);
+                return ctx.SaveChanges() == 1;
             }
         }
     }

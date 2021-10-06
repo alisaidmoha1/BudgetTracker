@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace Budget.Models
 {
     public class ExpenseCreate
-    {
+    { 
         [Required]
         public int CategoryId { get; set; }
         public SelectList Categories { get; set; }

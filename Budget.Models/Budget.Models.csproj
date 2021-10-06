@@ -79,12 +79,19 @@
     <Compile Include="CategoryEdit.cs" />
     <Compile Include="CategoryListItem.cs" />
     <Compile Include="ExpenseCreate.cs" />
+    <Compile Include="ExpenseEdit.cs" />
     <Compile Include="ExpenseListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Budget.Data\Budget.Data.csproj">
+      <Project>{3CC43015-D267-426F-B6ED-5EB1BBD4984C}</Project>
+      <Name>Budget.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

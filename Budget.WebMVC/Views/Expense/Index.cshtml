@@ -12,9 +12,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ExpenseId)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.CategoryName)
         </th>
         <th>
@@ -26,26 +23,39 @@
         <th>Actions</th>
     </tr>
 
-@foreach (var item in Model) {
+    @{
+        int Total = 0;
+    }
+
+    @foreach (var item in Model)
+    {
+        Total = Convert.ToInt32(Total + item.Amount);
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedUtc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+
+
+    }
+
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpenseId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedUtc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        <td colspan="4" class="text-right">
+            <b>Total: @Total</b>
         </td>
     </tr>
-}
+
 
 </table>
+
+

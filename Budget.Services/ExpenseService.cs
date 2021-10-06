@@ -24,7 +24,7 @@ namespace Budget.Services
                 {
                     UserId = _userId,
                     CategoryId = model.CategoryId,
-                    CreatedUtc = DateTimeOffset.UtcNow,
+                    CreatedUtc = model.CreatedUtc,
                     Amount = model.Amount,
                     IsRepeat = model.IsRepeat,
                     Note = model.Note
@@ -49,13 +49,12 @@ namespace Budget.Services
                             e =>
                                 new ExpenseListItem
                                 {
-                                    ExpenseId = e.ExpenseId,
                                     CategoryName = e.Category.CategoryName,
                                     CreatedUtc = e.CreatedUtc,
                                     Amount = e.Amount
                                 }
 
-                        );
+                        ); ;
                 return query.ToArray();
             }
         }

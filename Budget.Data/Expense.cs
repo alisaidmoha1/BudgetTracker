@@ -17,7 +17,9 @@ namespace Budget.Data
         [Required]
         public Guid UserId { get; set; }
         [Required]
-        public DateTimeOffset CreatedUtc { get; set; }
+        [Display(Name ="Date")]
+        [DisplayFormat(ApplyFormatInEditMode =true, DataFormatString ="{0:dd/MM/yyyy}")]
+        public DateTime CreatedUtc { get; set; }
         [Required]
         public decimal Amount { get; set; }
         [Required]

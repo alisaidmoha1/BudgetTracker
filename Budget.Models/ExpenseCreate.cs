@@ -10,11 +10,13 @@ namespace Budget.Models
 {
     public class ExpenseCreate
     {
-        public int CategoryId { get; set; }
         [Required]
+        public int CategoryId { get; set; }
         public SelectList Categories { get; set; }
         [Required]
-        public DateTimeOffset CreatedUtc { get; set; }
+        [Display(Name = "Date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime CreatedUtc { get; set; } = DateTime.Now;
         [Required]
         public decimal Amount { get; set; }
         [Required]

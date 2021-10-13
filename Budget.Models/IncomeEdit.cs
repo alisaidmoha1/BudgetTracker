@@ -8,18 +8,19 @@ using System.Web.Mvc;
 
 namespace Budget.Models
 {
-    public class ExpenseCreate
-    { 
-        [Required]
-        public int ExpenseCategoryId { get; set; }
-        public SelectList ExpenseCategories { get; set; }
-        [Required]
+    public class IncomeEdit
+    {
+        public int IncomeId { get; set; }
+        [Display(Name = "Category")]
+        public int IncomeCategoryId { get; set; }
+        public SelectList Categories { get; set; }
+
         [Display(Name = "Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime CreatedUtc { get; set; } = DateTime.Now;
-        [Required]
+        public DateTime CreatedUtc { get; set; }
+
         public decimal Amount { get; set; }
-        [Required]
+
         public bool IsRepeat { get; set; }
         public string Note { get; set; }
     }

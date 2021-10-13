@@ -12,8 +12,8 @@ namespace Budget.Data
         [Key]
         public int ExpenseId { get; set; }
         [Required]
-        public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+        public int ExpenseCategoryId { get; set; }
+        public virtual ExpenseCategory Category { get; set; }
         [Required]
         public Guid UserId { get; set; }
         [Required]

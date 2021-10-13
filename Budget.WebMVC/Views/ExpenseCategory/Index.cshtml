@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Budget.Models.ExpenseCategoryListItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { }, new {@class = "btn btn-primary" })
+</p>
+@if (TempData.ContainsKey("SaveResult"))
+{
+<div class="alert alert-success fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span>&times;</span>
+    </button>
+@TempData["SaveResult"]
+</div>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpenseCategoryId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpenseCategoryName)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpenseCategoryId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpenseCategoryName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ExpenseCategoryId}, new {@class ="btn btn-success"}) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.ExpenseCategoryId }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Budget.Data
 {
-    public class Category
+    public class ExpenseCategory
     {
         [Key]
-        public int CategoryId { get; set; }
+        public int ExpenseCategoryId { get; set; }
         [Required]
         public Guid UserId { get; set; }
         [Required]
-        public string CategoryName { get; set; }
+        public string ExpenseCategoryName { get; set; }
         
     }
 }

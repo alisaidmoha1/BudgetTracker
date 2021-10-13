@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Budget.Models
 {
-    public class CategoryListItem
+    public class IncomeCategoryEdit
     {
-        [Display(Name="Category")]
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        public int IncomeCategoryId { get; set; }
+        [Display(Name ="Category Name")]
+        public string IncomeCategoryName { get; set; }
     }
 }

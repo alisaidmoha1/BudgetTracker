@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 
 namespace Budget.Services
 {
-    public class ExpenseService
+    public class IncomeService
     {
         private readonly Guid _userId;
 
-        public ExpenseService(Guid userId)
+        public IncomeService(Guid userId)
         {
             _userId = userId;
         }
 
-        public bool CreateExpense(ExpenseCreate model)
+        public bool CreateIncome(IncomeCreate model)
         {
             var entity =
-                new Expense()
+                new Income()
                 {
                     UserId = _userId,
-                    ExpenseCategoryId = model.ExpenseCategoryId,
+                    IncomeCategoryId = model.IncomeCategoryId,
                     CreatedUtc = model.CreatedUtc,
                     Amount = model.Amount,
                     IsRepeat = model.IsRepeat,
@@ -32,24 +32,25 @@ namespace Budget.Services
 
             using (var ctx = new ApplicationDbContext())
             {
-                ctx.Expenses.Add(entity);
+                ctx.Incomes.Add(entity);
                 return ctx.SaveChanges() == 1;
             }
         }
 
-        public IEnumerable<ExpenseListItem> GetExpense()
+        public IEnumerable<IncomeListItem> GetIncome()
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var query =
                     ctx
-                        .Expenses
+                        .Incomes
                         .Where(c => c.UserId == _userId)
                         .Select(
                             e =>
-                                new ExpenseListItem
-                                {   ExpenseId = e.ExpenseId,
-                                    ExpenseCategoryName = e.Category.ExpenseCategoryName,
+                                new IncomeListItem
+                                {
+                                    IncomeId = e.IncomeId,
+                                    IncomeCategoryName = e.IncomeCategory.IncomeCategoryName,
                                     CreatedUtc = e.CreatedUtc,
                                     Amount = e.Amount
                                 }
@@ -59,16 +60,27 @@ namespace Budget.Services
             }
         }
 
-        public bool UpdateExpense(ExpenseEdit model)
+        public IEnumerable<IncomeListItem> GetSearchResult (string searchString)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Incomes.ToList();
+                    
+                  return (IEnumerable<IncomeListItem>)entity.Where(x => x.IncomeCategory.IncomeCategoryName.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) != -1);
+            }
+        }
+
+
+        public bool UpdateIncome(IncomeEdit model)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
-                        .Expenses
-                        .Single(c => c.ExpenseId == model.ExpenseId && c.UserId == _userId);
+                        .Incomes
+                        .Single(c => c.IncomeId == model.IncomeId && c.UserId == _userId);
 
-                entity.ExpenseCategoryId = model.ExpenseCategoryId;
+                entity.IncomeCategoryId = model.IncomeCategoryId;
                 entity.CreatedUtc = entity.CreatedUtc;
                 entity.Amount = entity.Amount;
                 entity.IsRepeat = model.IsRepeat;
@@ -78,18 +90,18 @@ namespace Budget.Services
             }
         }
 
-        public ExpenseEdit GetExpenseById(int id)
+        public IncomeEdit GetIncomeById(int id)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
-                        .Expenses
-                        .Single(c => c.ExpenseId == id && c.UserId == _userId);
+                        .Incomes
+                        .Single(c => c.IncomeId == id && c.UserId == _userId);
                 return
-                    new ExpenseEdit
+                    new IncomeEdit
                     {
-                        ExpenseCategoryId = entity.ExpenseCategoryId,
+                        IncomeCategoryId = entity.IncomeCategoryId,
                         CreatedUtc = entity.CreatedUtc,
                         Amount = entity.Amount,
                         IsRepeat = entity.IsRepeat,
@@ -98,17 +110,18 @@ namespace Budget.Services
             }
         }
 
-        public bool DeleteExpense(int catId)
+        public bool DeleteIncome(int catId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
-                        .Expenses
-                        .Single(c => c.ExpenseId == catId && c.UserId == _userId);
-                ctx.Expenses.Remove(entity);
+                        .Incomes
+                        .Single(c => c.IncomeId == catId && c.UserId == _userId);
+                ctx.Incomes.Remove(entity);
                 return ctx.SaveChanges() == 1;
             }
         }
     }
 }
+

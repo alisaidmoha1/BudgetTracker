@@ -9,14 +9,15 @@ using System.Web.Mvc;
 
 namespace Budget.WebMVC.Controllers
 {
-    public class CategoryController : Controller
+    [Authorize]
+    public class IncomeCategoryController : Controller
     {
         // GET: Category
         public ActionResult Index()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var service = new CategoryService(userId);
-            var model = service.GetCategories();
+            var service = new IncomeCategoryService(userId);
+            var model = service.GetIncomeCategories();
             return View(model);
         }
 
@@ -27,16 +28,16 @@ namespace Budget.WebMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CategoryCreate model)
+        public ActionResult Create(IncomeCategoryCreate model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var service = CreateCategoryService();
+            var service = CreateIncomeCategoryService();
 
-            if(service.CreateCategroy(model))
+            if (service.CreateIncomeCategroy(model))
             {
                 TempData["SaveResult"] = "Your category was created.";
 
@@ -48,14 +49,14 @@ namespace Budget.WebMVC.Controllers
             return View(model);
         }
 
-        public ActionResult Edit (int id)
+        public ActionResult Edit(int id)
         {
-            var service = CreateCategoryService();
-            var detail = service.GetCategoryById(id);
-            var model = new CategoryEdit
+            var service = CreateIncomeCategoryService();
+            var detail = service.GetIncomeCategoryById(id);
+            var model = new IncomeCategoryEdit
             {
-                CategoryId = detail.CategoryId,
-                CategoryName = detail.CategoryName
+                IncomeCategoryId = detail.IncomeCategoryId,
+                IncomeCategoryName = detail.IncomeCategoryName
             };
 
             return View(model);
@@ -63,19 +64,19 @@ namespace Budget.WebMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit (int id, CategoryEdit model)
+        public ActionResult Edit(int id, IncomeCategoryEdit model)
         {
             if (!ModelState.IsValid) return View(model);
 
-            if(model.CategoryId != id)
+            if (model.IncomeCategoryId != id)
             {
                 ModelState.AddModelError("", "Id Mismatch");
                 return View(model);
             }
 
-            var service = CreateCategoryService();
+            var service = CreateIncomeCategoryService();
 
-            if(service.UpdateCategory(model))
+            if (service.UpdateIncomeCategory(model))
             {
                 TempData["SaveResult"] = "You category was updated.";
                 return RedirectToAction("Index");
@@ -88,8 +89,8 @@ namespace Budget.WebMVC.Controllers
         [ActionName("Delete")]
         public ActionResult Delete(int id)
         {
-            var svc = CreateCategoryService();
-            var model = svc.GetCategoryById(id);
+            var svc = CreateIncomeCategoryService();
+            var model = svc.GetIncomeCategoryById(id);
             return View(model);
         }
 
@@ -99,16 +100,16 @@ namespace Budget.WebMVC.Controllers
 
         public ActionResult DeletePost(int id)
         {
-            var service = CreateCategoryService();
-            service.DeleteCategory(id);
+            var service = CreateIncomeCategoryService();
+            service.DeleteIncomeCategory(id);
             TempData["SaveResult"] = "You category was deleted";
             return RedirectToAction("Index");
         }
 
-        private CategoryService CreateCategoryService()
+        private IncomeCategoryService CreateIncomeCategoryService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var service = new CategoryService(userId);
+            var service = new IncomeCategoryService(userId);
             return service;
         }
     }

@@ -24,8 +24,10 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                    <li>@Html.ActionLink("Categories", "Index", "Category")</li>
-                    <li>@Html.ActionLink("Expenses", "Index", "Expense")</li>
+                        <li>@Html.ActionLink("Expense Category", "Index", "ExpenseCategory")</li>
+                        <li>@Html.ActionLink("Income Category", "Index", "IncomeCategory")</li>
+                        <li>@Html.ActionLink("Expenses", "Index", "Expense")</li>
+                        <li>@Html.ActionLink("Income", "Index", "Income")</li>
                     }
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
@@ -38,7 +40,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Budget Tracker</p>
         </footer>
     </div>
 

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Budget.Models.IncomeCategoryListItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IncomeCategoryId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IncomeCategoryName)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IncomeCategoryId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IncomeCategoryName)
+        </td>
+        <td>
+
+            @Html.ActionLink("Edit", "Edit", new { id = item.IncomeCategoryId }, new { @class = "btn btn-success" }) 
+            @Html.ActionLink("Delete", "Delete", new { id = item.IncomeCategoryId }, new {@class = "btn btn-danger"})
+        </td>
+    </tr>
+}
+
+</table>

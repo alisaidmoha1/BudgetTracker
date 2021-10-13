@@ -54,8 +54,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategoryService.cs" />
+    <Compile Include="ExpenseCategoryService.cs" />
+    <Compile Include="ExpenseReportService.cs" />
     <Compile Include="ExpenseService.cs" />
+    <Compile Include="IncomeCategoryService.cs" />
+    <Compile Include="IncomeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Budget.Models.IncomeListItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<p>
+    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IncomeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IncomeCategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedUtc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IncomeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IncomeCategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedUtc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @*<a href="#" class="btn btn-danger" onclick="AddEditIncome(@item.IncomeId)"><i class="glyphicon glyphicon-pencil"></i></a>*@
+                @Html.ActionLink("Edit", "Edit", new { id=item.IncomeId }, new { @class = "btn btn-success"})
+                @Html.ActionLink("Delete", "Delete", new { id = item.IncomeId }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="modal fade" id="myModal" style="width:40%;margin-top:10%">
+    <div class="modal-dailog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h3 class="modal-title"> Add Edit Income</h3>
+            </div>
+            <div class="modal-body" id="myModalBodyDiv">
+              
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script>
+    var AddEditIncome = function (incomeId) {
+        var url = "/Income/AddEditIncome?IncomeId=" + incomeId;
+        $("#myModalBodyDiv").load(url, function () {
+            $("#myModal").modal("show");
+        })
+    }
+</script>

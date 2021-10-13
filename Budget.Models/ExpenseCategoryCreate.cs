@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace Budget.Models
 {
-    public class CategoryCreate
+    public class ExpenseCategoryCreate
     {
         [Required]
         [MinLength(2, ErrorMessage ="Please enter at least 2 characters.")]
         [MaxLength(100, ErrorMessage ="There are too many characters in this field")]
-        public string CategoryName { get; set; }
+        [Display(Name ="Category Name")]
+        public string ExpenseCategoryName { get; set; }
     }
 }

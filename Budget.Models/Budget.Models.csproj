@@ -75,12 +75,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategoryCreate.cs" />
-    <Compile Include="CategoryEdit.cs" />
-    <Compile Include="CategoryListItem.cs" />
+    <Compile Include="ExpenseCategoryCreate.cs" />
+    <Compile Include="ExpenseCategoryEdit.cs" />
+    <Compile Include="ExpenseCategoryListItem.cs" />
     <Compile Include="ExpenseCreate.cs" />
     <Compile Include="ExpenseEdit.cs" />
     <Compile Include="ExpenseListItem.cs" />
+    <Compile Include="IncomeCategoryEdit.cs" />
+    <Compile Include="IncomeCategoryListItem.cs" />
+    <Compile Include="IncomeCategoryCreate.cs" />
+    <Compile Include="IncomeCreate.cs" />
+    <Compile Include="IncomeEdit.cs" />
+    <Compile Include="IncomeListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

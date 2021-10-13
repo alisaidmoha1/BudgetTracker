@@ -25,9 +25,9 @@ namespace Budget.WebMVC.Controllers
         {
             ExpenseCreate model = new ExpenseCreate();
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var service = new CategoryService(userId);
-            var cat = service.GetCategories();
-            model.Categories = new SelectList(cat, "CategoryId", "CategoryName");
+            var service = new ExpenseCategoryService(userId);
+            var cat = service.GetExpenseCategories();
+            model.ExpenseCategories = new SelectList(cat, "ExpenseCategoryId", "ExpenseCategoryName");
             return View(model);
         }
 
@@ -37,6 +37,11 @@ namespace Budget.WebMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ExpenseCreate mdl = new ExpenseCreate();
+                var userId = Guid.Parse(User.Identity.GetUserId());
+                var svc = new ExpenseCategoryService(userId);
+                var cat = svc.GetExpenseCategories();
+                model.ExpenseCategories = new SelectList(cat, "ExpenseCategoryId", "ExpenseCategoryName");
                 return View(model);
             }
 
@@ -59,11 +64,11 @@ namespace Budget.WebMVC.Controllers
             var service = CreateExpenseService();
             var detail = service.GetExpenseById(id);
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var svc = new CategoryService(userId);
-            var cat = svc.GetCategories();
+            var svc = new ExpenseCategoryService(userId);
+            var cat = svc.GetExpenseCategories();
             var model = new ExpenseEdit
             {
-                Categories = new SelectList(cat, "CategoryId", "CategoryName"),
+                ExpenseCategories = new SelectList(cat, "ExpenseCategoryId", "ExpenseCategoryName"),
                 //CategoryId = detail.CategoryId,
                 CreatedUtc = detail.CreatedUtc,
                 Amount = detail.Amount,

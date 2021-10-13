@@ -4,23 +4,28 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
-namespace Budget.Models
+namespace Budget.Data
 {
-    public class ExpenseCreate
-    { 
+    public class Income
+    {
+        [Key]
+        public int IncomeId { get; set; }
         [Required]
-        public int ExpenseCategoryId { get; set; }
-        public SelectList ExpenseCategories { get; set; }
+        public int IncomeCategoryId { get; set; }
+        public virtual IncomeCategory IncomeCategory { get; set; }
+        [Required]
+        public Guid UserId { get; set; }
         [Required]
         [Display(Name = "Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime CreatedUtc { get; set; } = DateTime.Now;
+        public DateTime CreatedUtc { get; set; }
         [Required]
         public decimal Amount { get; set; }
         [Required]
+        [Display(Name = "Repeat")]
         public bool IsRepeat { get; set; }
         public string Note { get; set; }
     }
+
 }

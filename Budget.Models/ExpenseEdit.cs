@@ -13,8 +13,8 @@ namespace Budget.Models
     {
         public int ExpenseId { get; set; }
         [Display(Name ="Category")]
-        public int CategoryId { get; set; }
-        public SelectList Categories { get; set; }
+        public int ExpenseCategoryId { get; set; }
+        public SelectList ExpenseCategories { get; set; }
       
         [Display(Name = "Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]

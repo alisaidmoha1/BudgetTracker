@@ -8,45 +8,45 @@ using System.Threading.Tasks;
 
 namespace Budget.Services
 {
-    public class CategoryService
+    public class ExpenseCategoryService
     {
         private readonly Guid _userId;
 
-        public CategoryService(Guid userId)
+        public ExpenseCategoryService(Guid userId)
         {
             _userId = userId;
         }
 
-        public bool CreateCategroy(CategoryCreate model)
+        public bool CreateExpenseCategroy(ExpenseCategoryCreate model)
         {
             var entity =
-                new Category()
+                new ExpenseCategory()
                 {
                     UserId = _userId,
-                    CategoryName = model.CategoryName
+                    ExpenseCategoryName = model.ExpenseCategoryName
                 };
 
              using (var ctx = new ApplicationDbContext())
             {
-                ctx.Categories.Add(entity);
+                ctx.ExpenseCategories.Add(entity);
                 return ctx.SaveChanges() == 1;
             }
         }
 
-        public IEnumerable<CategoryListItem> GetCategories()
+        public IEnumerable<ExpenseCategoryListItem> GetExpenseCategories()
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var query =
                     ctx
-                        .Categories
+                        .ExpenseCategories
                         .Where(c => c.UserId == _userId)
                         .Select(
                             e =>
-                                new CategoryListItem
+                                new ExpenseCategoryListItem
                                 {
-                                    CategoryId = e.CategoryId,
-                                    CategoryName = e.CategoryName
+                                    ExpenseCategoryId = e.ExpenseCategoryId,
+                                    ExpenseCategoryName = e.ExpenseCategoryName
                                 }
 
                         );
@@ -54,47 +54,47 @@ namespace Budget.Services
             }
         }
 
-        public bool UpdateCategory(CategoryEdit model)
+        public bool UpdateExpenseCategory(ExpenseCategoryEdit model)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
-                        .Categories
-                        .Single(c => c.CategoryId == model.CategoryId && c.UserId == _userId);
+                        .ExpenseCategories
+                        .Single(c => c.ExpenseCategoryId == model.ExpenseCategoryId && c.UserId == _userId);
 
-                entity.CategoryName = model.CategoryName;
+                entity.ExpenseCategoryName = model.ExpenseCategoryName;
 
                 return ctx.SaveChanges() == 1;
             }
         }
 
-        public CategoryEdit GetCategoryById(int id)
+        public ExpenseCategoryEdit GetExpenseCategoryById(int id)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
-                        .Categories
-                        .Single(c => c.CategoryId == id && c.UserId == _userId);
+                        .ExpenseCategories
+                        .Single(c => c.ExpenseCategoryId == id && c.UserId == _userId);
                 return
-                    new CategoryEdit
+                    new ExpenseCategoryEdit
                     {
-                        CategoryId = entity.CategoryId,
-                        CategoryName = entity.CategoryName
+                        ExpenseCategoryId = entity.ExpenseCategoryId,
+                        ExpenseCategoryName = entity.ExpenseCategoryName
                     };
             }
         }
 
-        public bool DeleteCategory(int catId)
+        public bool DeleteExpenseCategory(int catId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
-                        .Categories
-                        .Single(c => c.CategoryId == catId && c.UserId == _userId);
-                ctx.Categories.Remove(entity);
+                        .ExpenseCategories
+                        .Single(c => c.ExpenseCategoryId == catId && c.UserId == _userId);
+                ctx.ExpenseCategories.Remove(entity);
                 return ctx.SaveChanges() == 1;
             }
         }

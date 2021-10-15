@@ -110,6 +110,8 @@ namespace Budget.Services
             }
         }
 
+
+
         public bool DeleteIncome(int catId)
         {
             using (var ctx = new ApplicationDbContext())

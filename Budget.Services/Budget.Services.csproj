@@ -55,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExpenseCategoryService.cs" />
-    <Compile Include="ExpenseReportService.cs" />
     <Compile Include="ExpenseService.cs" />
     <Compile Include="IncomeCategoryService.cs" />
     <Compile Include="IncomeService.cs" />

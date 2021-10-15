@@ -4,36 +4,65 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Income Category</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary" })
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IncomeCategoryId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IncomeCategoryName)
-        </th>
-        <th>Actions</th>
-    </tr>
+<div class="cont">
+    <br />
+    <p>
+        <a href="@Url.Action("Create")" class="btn btn-primary">
+            Add Category
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IncomeCategoryId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IncomeCategoryName)
-        </td>
-        <td>
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+        </a>
 
-            @Html.ActionLink("Edit", "Edit", new { id = item.IncomeCategoryId }, new { @class = "btn btn-success" }) 
-            @Html.ActionLink("Delete", "Delete", new { id = item.IncomeCategoryId }, new {@class = "btn btn-danger"})
-        </td>
-    </tr>
-}
+        <a href="@Url.Action("Create", "Income")" class="btn btn-success" id="buttonid">
+            Add Income
 
-</table>
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+        </a>
+    </p>
+    @if (TempData.ContainsKey("SaveResult"))
+    {
+        <div class="alert alert-success fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+            @TempData["SaveResult"]
+        </div>
+    }
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IncomeCategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IncomeCategoryName)
+            </th>
+            <th>Actions</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IncomeCategoryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IncomeCategoryName)
+                </td>
+                <td>
+
+                    <a href="@Url.Action("Edit", new { id = item.IncomeCategoryId })" class="btn btn-success">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </a>
+
+                    <a href="@Url.Action("Delete", new { id = item.IncomeCategoryId })" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>

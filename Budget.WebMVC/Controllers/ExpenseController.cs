@@ -49,12 +49,12 @@ namespace Budget.WebMVC.Controllers
 
             if (service.CreateExpense(model))
             {
-                TempData["SaveResult"] = "Your category was created.";
+                TempData["SaveResult"] = "Your Expense was created.";
 
                 return RedirectToAction("Index");
             }
 
-            ModelState.AddModelError("", "Category could not be created.");
+            ModelState.AddModelError("", "Expense could not be created.");
 
             return View(model);
         }
@@ -69,12 +69,14 @@ namespace Budget.WebMVC.Controllers
             var model = new ExpenseEdit
             {
                 ExpenseCategories = new SelectList(cat, "ExpenseCategoryId", "ExpenseCategoryName"),
-                //CategoryId = detail.CategoryId,
+                ExpenseCategoryId = detail.ExpenseCategoryId,
                 CreatedUtc = detail.CreatedUtc,
                 Amount = detail.Amount,
                 IsRepeat = detail.IsRepeat,
                 Note = detail.Note
             };
+
+            
 
             return View(model);
         }
@@ -83,7 +85,8 @@ namespace Budget.WebMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, ExpenseEdit model)
         {
-            
+            ViewData["Edit"] = model;
+
             if (!ModelState.IsValid) return View(model);
 
             if (model.ExpenseId != id)
@@ -96,11 +99,11 @@ namespace Budget.WebMVC.Controllers
 
             if (service.UpdateExpense(model))
             {
-                TempData["SaveResult"] = "You category was updated.";
+                TempData["SaveResult"] = "You Expense was updated.";
                 return RedirectToAction("Index");
             }
 
-            ModelState.AddModelError("", "Your Category could not be updated.");
+            ModelState.AddModelError("", "Your Expense could not be updated.");
             return View(model);
         }
 
@@ -120,8 +123,30 @@ namespace Budget.WebMVC.Controllers
         {
             var service = CreateExpenseService();
             service.DeleteExpense(id);
-            TempData["SaveResult"] = "You category was deleted";
+            TempData["SaveResult"] = "You Expense was deleted";
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ExpenseSummary()
+        {
+            return PartialView("_expenseReport");
+        }
+
+        public JsonResult GetMonthlyExpense()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new ExpenseService(userId);
+            Dictionary<string, decimal> monthlyExpense = service.CalculateMonthlyExpense();
+            return Json(monthlyExpense, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetWeeklyExpense()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new ExpenseService(userId);
+            Dictionary<string, decimal> weeklyExpense = service.CalculateWeeklyExpense();
+            return Json(weeklyExpense, JsonRequestBehavior.AllowGet);
+
         }
 
         private ExpenseService CreateExpenseService()

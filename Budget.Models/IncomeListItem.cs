@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Budget.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace Budget.Models
         public DateTimeOffset CreatedUtc { get; set; }
         [Display(Name = "Amount")]
         public decimal Amount { get; set; }
+        public virtual Expense Expenses { get; set; }
     }
 }

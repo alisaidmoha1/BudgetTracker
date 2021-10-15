@@ -11,6 +11,7 @@ namespace Budget.Models
     public class ExpenseCreate
     { 
         [Required]
+        [Display(Name ="Category")]
         public int ExpenseCategoryId { get; set; }
         public SelectList ExpenseCategories { get; set; }
         [Required]
@@ -20,7 +21,9 @@ namespace Budget.Models
         [Required]
         public decimal Amount { get; set; }
         [Required]
+        [Display(Name ="Repeat")]
         public bool IsRepeat { get; set; }
+        [Display(Name ="Note(Optional)")]
         public string Note { get; set; }
     }
 }

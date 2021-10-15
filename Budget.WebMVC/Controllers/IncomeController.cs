@@ -50,12 +50,12 @@ namespace Budget.WebMVC.Controllers
 
             if (service.CreateIncome(model))
             {
-                TempData["SaveResult"] = "Your category was created.";
+                TempData["SaveResult"] = "Your Income was created.";
 
                 return RedirectToAction("Index");
             }
 
-            ModelState.AddModelError("", "Category could not be created.");
+            ModelState.AddModelError("", "Income could not be created.");
 
             return View(model);
         }
@@ -103,6 +103,11 @@ namespace Budget.WebMVC.Controllers
             return View(model);
         }
 
+        public ActionResult CashFlow()
+        {
+            return PartialView("_cashFlow");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IncomeEdit model)
@@ -130,11 +135,11 @@ namespace Budget.WebMVC.Controllers
 
             if (service.UpdateIncome(model))
             {
-                TempData["SaveResult"] = "You category was updated.";
+                TempData["SaveResult"] = "You Income was updated.";
                 return RedirectToAction("Index");
             }
 
-            ModelState.AddModelError("", "Your Category could not be updated.");
+            ModelState.AddModelError("", "Your Income could not be updated.");
             return View(model);
         }
 
@@ -154,7 +159,7 @@ namespace Budget.WebMVC.Controllers
         {
             var service = CreateIncomeService();
             service.DeleteIncome(id);
-            TempData["SaveResult"] = "You category was deleted";
+            TempData["SaveResult"] = "You Income was deleted";
             return RedirectToAction("Index");
         }
 

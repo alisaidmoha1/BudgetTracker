@@ -1,0 +1,24 @@
+﻿
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+<div id="container" style="height: 400px"></div>
+
+<script>
+
+    Highcharts.chart('container', {
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        series: [{
+            name: 'Income',
+            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+        },
+        {
+            name: 'Expense',
+            data: [9.9, 71.5, 26.4, 109.2, 144.0, 186.0, 140.6, 18.5, 116.4, 194.1, 40.6, 34.4]
+        }
+
+        ]
+    });
+
+</script>

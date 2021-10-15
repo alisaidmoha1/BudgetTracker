@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="ExpenseCategory.cs" />
     <Compile Include="Expense.cs" />
-    <Compile Include="ExpenseReport.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="Income.cs" />
     <Compile Include="IncomeCategory.cs" />

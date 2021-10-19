@@ -11,11 +11,13 @@ namespace Budget.Models
 {
     public class ExpenseEdit
     {
+       
         public int ExpenseId { get; set; }
         [Display(Name ="Category")]
+        //public virtual ExpenseCategory Category { get; set; }
         public int ExpenseCategoryId { get; set; }
-        public SelectList ExpenseCategories { get; set; }
-      
+        public IEnumerable<SelectListItem> ExpenseCategories { get; set; }
+
         [Display(Name = "Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime CreatedUtc { get; set; }

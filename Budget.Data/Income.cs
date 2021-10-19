@@ -22,9 +22,6 @@ namespace Budget.Data
         public DateTime CreatedUtc { get; set; }
         [Required]
         public decimal Amount { get; set; }
-        [Required]
-        [Display(Name = "Repeat")]
-        public bool IsRepeat { get; set; }
         public string Note { get; set; }
     }
 

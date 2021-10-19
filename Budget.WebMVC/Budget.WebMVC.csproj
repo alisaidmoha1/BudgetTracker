@@ -256,6 +256,14 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="SmartLogin\css\style.css" />
+    <Content Include="SmartLogin\images\arrow.png" />
+    <Content Include="SmartLogin\images\bg.jpeg" />
+    <Content Include="SmartLogin\images\bg3.jpg" />
+    <Content Include="SmartLogin\images\mail.png" />
+    <Content Include="SmartLogin\images\pass.png" />
+    <Content Include="SmartLogin\index.html" />
+    <Content Include="SmartLogin\w3layouts-License.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -308,6 +316,7 @@
     <Content Include="Views\Income\Delete.cshtml" />
     <Content Include="Views\Income\Edit.cshtml" />
     <Content Include="Views\Income\_cashFlow.cshtml" />
+    <Content Include="Views\Account\SmartLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

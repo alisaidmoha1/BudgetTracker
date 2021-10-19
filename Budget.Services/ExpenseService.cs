@@ -25,6 +25,7 @@ namespace Budget.Services
                 {
                     UserId = _userId,
                     ExpenseCategoryId = model.ExpenseCategoryId,
+                    //Category = model.Category,
                     CreatedUtc = model.CreatedUtc,
                     Amount = model.Amount,
                     IsRepeat = model.IsRepeat,
@@ -51,6 +52,7 @@ namespace Budget.Services
                                 new ExpenseListItem
                                 {   ExpenseId = e.ExpenseId,
                                     ExpenseCategoryName = e.Category.ExpenseCategoryName,
+                                    //Categroy = e.Category,
                                     CreatedUtc = e.CreatedUtc,
                                     Amount = e.Amount
                                 }
@@ -70,10 +72,11 @@ namespace Budget.Services
                         .Single(c => c.ExpenseId == model.ExpenseId && c.UserId == _userId);
 
                 entity.ExpenseCategoryId = model.ExpenseCategoryId;
-                entity.CreatedUtc = entity.CreatedUtc;
-                entity.Amount = entity.Amount;
+                //entity.Category = model.Category;
+                entity.CreatedUtc = model.CreatedUtc;
+                entity.Amount = model.Amount;
                 entity.IsRepeat = model.IsRepeat;
-                entity.Note = entity.Note;
+                entity.Note = model.Note;
 
                 return ctx.SaveChanges() == 1;
             }
@@ -91,6 +94,8 @@ namespace Budget.Services
                     new ExpenseEdit
                     {
                         ExpenseCategoryId = entity.ExpenseCategoryId,
+                        ExpenseId = entity.ExpenseId,
+                        //Category = entity.Category,
                         CreatedUtc = entity.CreatedUtc,
                         Amount = entity.Amount,
                         IsRepeat = entity.IsRepeat,
@@ -103,6 +108,7 @@ namespace Budget.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
+
                 Dictionary<string, decimal> dictMonthySum = new Dictionary<string, decimal>();
 
 
@@ -112,7 +118,7 @@ namespace Budget.Services
 
                 decimal travelSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Travel" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -7))).Select(cat => cat.Amount).Sum();
 
-                decimal healthSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Food" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -7))).Select(cat => cat.Amount).Sum();
+                decimal healthSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Health" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -7))).Select(cat => cat.Amount).Sum();
 
                 dictMonthySum.Add("Food", foodSum);
                 dictMonthySum.Add("Shopping", shoppingSum);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Budget.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,10 +11,12 @@ namespace Budget.Models
 {
     public class ExpenseCreate
     { 
+       
         [Required]
         [Display(Name ="Category")]
         public int ExpenseCategoryId { get; set; }
         public SelectList ExpenseCategories { get; set; }
+        //public Category Category { get; set; }
         [Required]
         [Display(Name = "Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]

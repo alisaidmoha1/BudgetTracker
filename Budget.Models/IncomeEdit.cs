@@ -13,7 +13,7 @@ namespace Budget.Models
         public int IncomeId { get; set; }
         [Display(Name = "Category")]
         public int IncomeCategoryId { get; set; }
-        public SelectList Categories { get; set; }
+        public IEnumerable<SelectListItem> IncomeCategories { get; set; }
 
         [Display(Name = "Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
@@ -21,7 +21,6 @@ namespace Budget.Models
 
         public decimal Amount { get; set; }
 
-        public bool IsRepeat { get; set; }
         public string Note { get; set; }
     }
 }

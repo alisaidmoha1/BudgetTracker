@@ -26,7 +26,6 @@ namespace Budget.Services
                     IncomeCategoryId = model.IncomeCategoryId,
                     CreatedUtc = model.CreatedUtc,
                     Amount = model.Amount,
-                    IsRepeat = model.IsRepeat,
                     Note = model.Note
                 };
 
@@ -52,24 +51,14 @@ namespace Budget.Services
                                     IncomeId = e.IncomeId,
                                     IncomeCategoryName = e.IncomeCategory.IncomeCategoryName,
                                     CreatedUtc = e.CreatedUtc,
-                                    Amount = e.Amount
+                                    Amount = e.Amount,
+                                    Note = e.Note
                                 }
 
                         ); ;
                 return query.ToArray();
             }
         }
-
-        public IEnumerable<IncomeListItem> GetSearchResult (string searchString)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var entity = ctx.Incomes.ToList();
-                    
-                  return (IEnumerable<IncomeListItem>)entity.Where(x => x.IncomeCategory.IncomeCategoryName.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) != -1);
-            }
-        }
-
 
         public bool UpdateIncome(IncomeEdit model)
         {
@@ -81,10 +70,9 @@ namespace Budget.Services
                         .Single(c => c.IncomeId == model.IncomeId && c.UserId == _userId);
 
                 entity.IncomeCategoryId = model.IncomeCategoryId;
-                entity.CreatedUtc = entity.CreatedUtc;
-                entity.Amount = entity.Amount;
-                entity.IsRepeat = model.IsRepeat;
-                entity.Note = entity.Note;
+                entity.CreatedUtc = model.CreatedUtc;
+                entity.Amount = model.Amount;
+                entity.Note = model.Note;
 
                 return ctx.SaveChanges() == 1;
             }
@@ -102,9 +90,9 @@ namespace Budget.Services
                     new IncomeEdit
                     {
                         IncomeCategoryId = entity.IncomeCategoryId,
+                        IncomeId = entity.IncomeId,
                         CreatedUtc = entity.CreatedUtc,
                         Amount = entity.Amount,
-                        IsRepeat = entity.IsRepeat,
                         Note = entity.Note
                     };
             }

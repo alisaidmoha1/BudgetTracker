@@ -48,12 +48,12 @@ namespace Budget.WebMVC.Models
 
     public class LoginViewModel
     {
-        //[Required]
+        [Required]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
         [Display(Name="User Name")]
-        [Required]
+        //[Required]
         public string UserName { get; set; }
 
 

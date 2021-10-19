@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace Budget.Data
 {
+    public enum Category { Food=1, Shopping, Travel, Health, Rent, Donation, Utility, Other}
     public class Expense
     {
         [Key]
+        [Required]
         public int ExpenseId { get; set; }
         [Required]
+        //public Category Category { get; set; }
         public int ExpenseCategoryId { get; set; }
         public virtual ExpenseCategory Category { get; set; }
         [Required]

@@ -17,7 +17,7 @@ namespace Budget.WebMVC.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new IncomeService(userId);
-            var model = service.GetIncome().ToList();
+            var model = service.GetIncome();
             return View(model);
         }
 
@@ -27,7 +27,7 @@ namespace Budget.WebMVC.Controllers
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new IncomeCategoryService(userId);
             var cat = service.GetIncomeCategories();
-            ViewBag.CategoryList = new SelectList(cat, "IncomeCategoryId", "IncomeCategoryName");
+            model.IncomeCategories =  new SelectList(cat, "IncomeCategoryId", "IncomeCategoryName");
             return View(model);
         }
 
@@ -36,13 +36,12 @@ namespace Budget.WebMVC.Controllers
         public ActionResult Create(IncomeCreate model)
         {
 
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var svc = new IncomeCategoryService(userId);
-            var cat = svc.GetIncomeCategories();
-            ViewBag.CategoryList = new SelectList(cat, "IncomeCategoryId", "IncomeCategoryName");
-
             if (!ModelState.IsValid)
             {
+                var userId = Guid.Parse(User.Identity.GetUserId());
+                var svc = new IncomeCategoryService(userId);
+                var cat = svc.GetIncomeCategories();
+                model.IncomeCategories = new SelectList(cat, "IncomeCategoryId", "IncomeCategoryName");
                 return View(model);
             }
 
@@ -60,28 +59,10 @@ namespace Budget.WebMVC.Controllers
             return View(model);
         }
 
-        //public ActionResult AddEditIncome(int IncomeId)
-        //{
-        //    var service = CreateIncomeService();
-        //    var userId = Guid.Parse(User.Identity.GetUserId());
-        //    var svc = new IncomeCategoryService(userId);
-        //    var cat = svc.GetIncomeCategories();
-        //    ViewBag.CategoryList = new SelectList(cat, "IncomeCategoryId", "IncomeCategoryName");
-        //    var model = new IncomeEdit();
-        //    if (IncomeId > 0)
-        //    {
-        //        var detail = service.GetIncomeById(IncomeId);
-
-        //        model.IncomeCategoryId = detail.IncomeCategoryId;
-        //        model.Amount = detail.Amount;
-        //        //model.Categories = detail.Categories;
-        //        model.IsRepeat = detail.IsRepeat;
-        //        model.Note = detail.Note;
-        //    }
-
-        //    return PartialView("_addedit", model);
-
-        //}
+        public ActionResult CashFlow()
+        {
+            return PartialView("_cashFlow");
+        }
 
         public ActionResult Edit(int id)
         {
@@ -92,36 +73,24 @@ namespace Budget.WebMVC.Controllers
             var cat = svc.GetIncomeCategories();
             var model = new IncomeEdit
             {
-                Categories = new SelectList(cat, "ExpenseCategoryId", "ExpenseCategoryName"),
+                IncomeCategories = new SelectList(cat, "IncomeCategoryId", "IncomeCategoryName"),
+                IncomeId = detail.IncomeId,
                 //CategoryId = detail.CategoryId,
                 CreatedUtc = detail.CreatedUtc,
                 Amount = detail.Amount,
-                IsRepeat = detail.IsRepeat,
                 Note = detail.Note
             };
 
             return View(model);
         }
 
-        public ActionResult CashFlow()
-        {
-            return PartialView("_cashFlow");
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IncomeEdit model)
         {
+            ViewData["Edit"] = model;
 
-
-            if (!ModelState.IsValid) {
-                var userId = Guid.Parse(User.Identity.GetUserId());
-                var svc = new IncomeCategoryService(userId);
-                var cat = svc.GetIncomeCategories();
-                model.Categories = new SelectList(cat, "ExpenseCategoryId", "ExpenseCategoryName");
-                return View(model);
-            }
-            return View(model);
+            if (!ModelState.IsValid) return View(model);
 
             if (model.IncomeId != id)
             {

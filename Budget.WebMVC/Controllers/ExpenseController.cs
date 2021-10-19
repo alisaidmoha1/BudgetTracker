@@ -1,4 +1,5 @@
-﻿using Budget.Models;
+﻿using Budget.Data;
+using Budget.Models;
 using Budget.Services;
 using Microsoft.AspNet.Identity;
 using System;
@@ -69,14 +70,14 @@ namespace Budget.WebMVC.Controllers
             var model = new ExpenseEdit
             {
                 ExpenseCategories = new SelectList(cat, "ExpenseCategoryId", "ExpenseCategoryName"),
-                ExpenseCategoryId = detail.ExpenseCategoryId,
+                //ExpenseCategoryId = detail.ExpenseCategoryId,
+                ExpenseId = detail.ExpenseId,
+                //Category = detail.Category,
                 CreatedUtc = detail.CreatedUtc,
                 Amount = detail.Amount,
                 IsRepeat = detail.IsRepeat,
                 Note = detail.Note
             };
-
-            
 
             return View(model);
         }

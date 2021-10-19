@@ -18,6 +18,6 @@ namespace Budget.Models
         public DateTimeOffset CreatedUtc { get; set; }
         [Display(Name = "Amount")]
         public decimal Amount { get; set; }
-        public virtual Expense Expenses { get; set; }
+        public string Note { get; set; }
     }
 }

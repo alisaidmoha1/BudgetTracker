@@ -27,6 +27,7 @@
         <div class="form-horizontal">
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ExpenseId)
 
             <div class="form-group">
                 @Html.LabelFor(model => model.ExpenseCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -86,7 +87,7 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
     <script>
         $(function () {
             $(".datepicker").datepicker({
@@ -96,7 +97,6 @@
                 yearRange: "2020:2030",
                 showOn: "both",
                 buttonText: "Select"
-
             });
         });
     </script>

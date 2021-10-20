@@ -317,6 +317,7 @@
     <Content Include="Views\Income\Edit.cshtml" />
     <Content Include="Views\Income\_cashFlow.cshtml" />
     <Content Include="Views\Account\SmartLogin.cshtml" />
+    <Content Include="Views\Income\_IncomeReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

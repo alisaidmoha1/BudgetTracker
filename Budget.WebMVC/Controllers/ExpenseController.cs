@@ -24,6 +24,7 @@ namespace Budget.WebMVC.Controllers
 
         public ActionResult Create()
         {
+            
             ExpenseCreate model = new ExpenseCreate();
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new ExpenseCategoryService(userId);

@@ -120,6 +120,11 @@ namespace Budget.WebMVC.Controllers
             return View(model);
         }
 
+        public ActionResult IncomeSummary()
+        {
+            return PartialView("_IncomeReport");
+        }
+
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -130,6 +135,23 @@ namespace Budget.WebMVC.Controllers
             service.DeleteIncome(id);
             TempData["SaveResult"] = "You Income was deleted";
             return RedirectToAction("Index");
+        }
+
+        public JsonResult GetYearlyIncome()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new IncomeService(userId);
+            Dictionary<string, decimal> yearlyIncome = service.CalculateYearlyIncome();
+            return Json(yearlyIncome, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetMonthlyIncome()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new IncomeService(userId);
+            Dictionary<string, decimal> monthlyIncome = service.CalculateMonthlyIncome();
+            return Json(monthlyIncome, JsonRequestBehavior.AllowGet);
+
         }
 
         private IncomeService CreateIncomeService()

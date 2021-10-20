@@ -14,6 +14,7 @@
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
         </a>
         <button class="btn btn-success" onclick="ReportExpense()">Cash Flow</button>
+        <button class="btn btn-info" onclick="ReportIncome()">Income Report</button>
     </p>
 
     @if (TempData.ContainsKey("SaveResult"))
@@ -26,11 +27,8 @@
         </div>
     }
 
-    <table class="table">
+    <table class="table table-hover">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IncomeId)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.IncomeCategoryName)
             </th>
@@ -108,6 +106,19 @@
     </div>
 </div>
 
+<div class="modal fade" id="incomeReportModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h3 class="modal-title">Income Report</h3>
+            </div>
+            <div class="modal-body" id="incomeReportModalDiv">
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 
     var ReportExpense = function () {
@@ -115,6 +126,17 @@
 
         $("#expenseReportModalDiv").load(url, function () {
             $("#expenseReportModal").modal("show");
+        })
+    }
+</script>
+
+<script>
+
+    var ReportIncome = function () {
+        var url = "/Income/IncomeSummary";
+
+        $("#incomeReportModalDiv").load(url, function () {
+            $("#incomeReportModal").modal("show");
         })
     }
 </script>

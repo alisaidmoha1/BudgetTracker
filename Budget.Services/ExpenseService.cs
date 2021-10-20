@@ -28,8 +28,8 @@ namespace Budget.Services
                     //Category = model.Category,
                     CreatedUtc = model.CreatedUtc,
                     Amount = model.Amount,
-                    IsRepeat = model.IsRepeat,
-                    Note = model.Note
+                    Note = model.Note,
+                    //Total = model.Amount
                 };
 
             using (var ctx = new ApplicationDbContext())
@@ -54,7 +54,8 @@ namespace Budget.Services
                                     ExpenseCategoryName = e.Category.ExpenseCategoryName,
                                     //Categroy = e.Category,
                                     CreatedUtc = e.CreatedUtc,
-                                    Amount = e.Amount
+                                    Amount = e.Amount,
+                                    Total = e.Total
                                 }
 
                         ); ;
@@ -75,7 +76,6 @@ namespace Budget.Services
                 //entity.Category = model.Category;
                 entity.CreatedUtc = model.CreatedUtc;
                 entity.Amount = model.Amount;
-                entity.IsRepeat = model.IsRepeat;
                 entity.Note = model.Note;
 
                 return ctx.SaveChanges() == 1;
@@ -98,7 +98,6 @@ namespace Budget.Services
                         //Category = entity.Category,
                         CreatedUtc = entity.CreatedUtc,
                         Amount = entity.Amount,
-                        IsRepeat = entity.IsRepeat,
                         Note = entity.Note
                     };
             }

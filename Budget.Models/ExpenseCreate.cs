@@ -23,6 +23,7 @@ namespace Budget.Models
         public DateTime CreatedUtc { get; set; } = DateTime.Now;
         [Required]
         public decimal Amount { get; set; }
+        public decimal Total { get { return Amount; } set { } }
         [Required]
         [Display(Name ="Repeat")]
         public bool IsRepeat { get; set; }

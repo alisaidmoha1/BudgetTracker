@@ -99,25 +99,25 @@ namespace Budget.Services
             }
         }
 
-        public Dictionary<string, decimal> CalculateYearlyIncome()
+        public Dictionary<string, decimal?> CalculateYearlyIncome()
         {
             using (var ctx = new ApplicationDbContext())
             {
 
-                Dictionary<string, decimal> dictYearlySum = new Dictionary<string, decimal>();
+                Dictionary<string, decimal?> dictYearlySum = new Dictionary<string, decimal?>();
 
 
-                decimal salary = ctx.Incomes.Where(cat => cat.IncomeCategory.IncomeCategoryName == "Salary" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -13)))
+                decimal? salary = ctx.Incomes.Where(cat => cat.IncomeCategory.IncomeCategoryName == "Salary" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -12)))
                     .Select(cat => cat.Amount)
                     .Sum();
 
-                decimal freelance = ctx.Incomes.Where
-                   (cat => cat.IncomeCategory.IncomeCategoryName == "Freelance" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -13)))
+                decimal? freelance = ctx.Incomes.Where
+                   (cat => cat.IncomeCategory.IncomeCategoryName == "Freelance" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -12)))
                    .Select(cat => cat.Amount)
                    .Sum();
 
-                decimal other = ctx.Incomes.Where
-                   (cat => cat.IncomeCategory.IncomeCategoryName == "Other" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -13)))
+                decimal? other = ctx.Incomes.Where
+                   (cat => cat.IncomeCategory.IncomeCategoryName == "Other" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -12)))
                    .Select(cat => cat.Amount)
                    .Sum();
 
@@ -132,23 +132,23 @@ namespace Budget.Services
             }
         }
 
-        public Dictionary<string, decimal> CalculateMonthlyIncome()
+        public Dictionary<string, decimal?> CalculateMonthlyIncome()
         {
             using (var ctx = new ApplicationDbContext())
             {
 
-                Dictionary<string, decimal> dictMonthlySum = new Dictionary<string, decimal>();
+                Dictionary<string, decimal?> dictMonthlySum = new Dictionary<string, decimal?>();
 
-                decimal salary = ctx.Incomes.Where(cat => cat.IncomeCategory.IncomeCategoryName == "Salary" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -4)))
+                decimal? salary = ctx.Incomes.Where(cat => cat.IncomeCategory.IncomeCategoryName == "Salary" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -4)))
                     .Select(cat => cat.Amount)
                     .Sum();
 
-                decimal freelance = ctx.Incomes.Where
+                decimal? freelance = ctx.Incomes.Where
                    (cat => cat.IncomeCategory.IncomeCategoryName == "Freelance" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -4)))
                    .Select(cat => cat.Amount)
                    .Sum();
 
-                decimal other = ctx.Incomes.Where
+                decimal? other = ctx.Incomes.Where
                    (cat => cat.IncomeCategory.IncomeCategoryName == "Other" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -4)))
                    .Select(cat => cat.Amount)
                    .Sum();

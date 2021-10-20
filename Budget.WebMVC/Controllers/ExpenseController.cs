@@ -71,12 +71,9 @@ namespace Budget.WebMVC.Controllers
             var model = new ExpenseEdit
             {
                 ExpenseCategories = new SelectList(cat, "ExpenseCategoryId", "ExpenseCategoryName"),
-                //ExpenseCategoryId = detail.ExpenseCategoryId,
                 ExpenseId = detail.ExpenseId,
-                //Category = detail.Category,
                 CreatedUtc = detail.CreatedUtc,
                 Amount = detail.Amount,
-                IsRepeat = detail.IsRepeat,
                 Note = detail.Note
             };
 
@@ -138,7 +135,7 @@ namespace Budget.WebMVC.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new ExpenseService(userId);
-            Dictionary<string, decimal> monthlyExpense = service.CalculateMonthlyExpense();
+            Dictionary<string, decimal?> monthlyExpense = service.CalculateMonthlyExpense();
             return Json(monthlyExpense, JsonRequestBehavior.AllowGet);
         }
 
@@ -146,7 +143,7 @@ namespace Budget.WebMVC.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new ExpenseService(userId);
-            Dictionary<string, decimal> weeklyExpense = service.CalculateWeeklyExpense();
+            Dictionary<string, decimal?> weeklyExpense = service.CalculateWeeklyExpense();
             return Json(weeklyExpense, JsonRequestBehavior.AllowGet);
 
         }

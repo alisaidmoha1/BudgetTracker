@@ -21,7 +21,7 @@ namespace Budget.Data
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime CreatedUtc { get; set; }
         [Required]
-        public decimal Amount { get; set; }
+        public decimal? Amount { get; set; }
         public string Note { get; set; }
     }
 

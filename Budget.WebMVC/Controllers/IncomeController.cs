@@ -141,7 +141,7 @@ namespace Budget.WebMVC.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new IncomeService(userId);
-            Dictionary<string, decimal> yearlyIncome = service.CalculateYearlyIncome();
+            Dictionary<string, decimal?> yearlyIncome = service.CalculateYearlyIncome();
             return Json(yearlyIncome, JsonRequestBehavior.AllowGet);
         }
 
@@ -149,7 +149,7 @@ namespace Budget.WebMVC.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new IncomeService(userId);
-            Dictionary<string, decimal> monthlyIncome = service.CalculateMonthlyIncome();
+            Dictionary<string, decimal?> monthlyIncome = service.CalculateMonthlyIncome();
             return Json(monthlyIncome, JsonRequestBehavior.AllowGet);
 
         }

@@ -432,7 +432,8 @@ namespace Budget.WebMVC.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("SmartLogin", "Account");
+            //return RedirectToAction("Index", "Home");
         }
 
         //

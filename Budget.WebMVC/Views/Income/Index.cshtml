@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<br />
 <h2>Income</h2>
 <div class="cont">
     <br />
@@ -55,9 +55,6 @@
             total = Convert.ToInt32(total + item.Amount);
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.IncomeId)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.IncomeCategoryName)
         </td>
         <td>
@@ -99,6 +96,7 @@
             <div class="modal-header">
                 <a href="#" class="close" data-dismiss="modal">&times;</a>
                 <h3 class="modal-title">Cash Flow</h3>
+                <p>This is dummy data, its a future future for the app.</p>
             </div>
             <div class="modal-body" id="expenseReportModalDiv">
             </div>

@@ -22,12 +22,9 @@ namespace Budget.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime CreatedUtc { get; set; } = DateTime.Now;
         [Required]
-        public decimal Amount { get; set; }
-        public decimal Total { get { return Amount; } set { } }
-        [Required]
-        [Display(Name ="Repeat")]
-        public bool IsRepeat { get; set; }
-        [Display(Name ="Note(Optional)")]
+        public decimal? Amount { get; set; }
+
+        [Display(Name ="Note")]
         public string Note { get; set; }
     }
 }

@@ -18,8 +18,8 @@ namespace Budget.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTimeOffset CreatedUtc { get; set; }
         [Display(Name ="Amount")]
-        public decimal Amount { get; set; }
-        public decimal Total { get; set; }
+        public decimal? Amount { get; set; }
+        public string Note { get; set; }
         
     }
 }

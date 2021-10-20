@@ -25,11 +25,9 @@ namespace Budget.Services
                 {
                     UserId = _userId,
                     ExpenseCategoryId = model.ExpenseCategoryId,
-                    //Category = model.Category,
                     CreatedUtc = model.CreatedUtc,
                     Amount = model.Amount,
-                    Note = model.Note,
-                    //Total = model.Amount
+                    Note = model.Note
                 };
 
             using (var ctx = new ApplicationDbContext())
@@ -52,10 +50,9 @@ namespace Budget.Services
                                 new ExpenseListItem
                                 {   ExpenseId = e.ExpenseId,
                                     ExpenseCategoryName = e.Category.ExpenseCategoryName,
-                                    //Categroy = e.Category,
                                     CreatedUtc = e.CreatedUtc,
                                     Amount = e.Amount,
-                                    Total = e.Total
+                                    Note = e.Note
                                 }
 
                         ); ;
@@ -73,7 +70,6 @@ namespace Budget.Services
                         .Single(c => c.ExpenseId == model.ExpenseId && c.UserId == _userId);
 
                 entity.ExpenseCategoryId = model.ExpenseCategoryId;
-                //entity.Category = model.Category;
                 entity.CreatedUtc = model.CreatedUtc;
                 entity.Amount = model.Amount;
                 entity.Note = model.Note;
@@ -95,7 +91,6 @@ namespace Budget.Services
                     {
                         ExpenseCategoryId = entity.ExpenseCategoryId,
                         ExpenseId = entity.ExpenseId,
-                        //Category = entity.Category,
                         CreatedUtc = entity.CreatedUtc,
                         Amount = entity.Amount,
                         Note = entity.Note
@@ -103,63 +98,78 @@ namespace Budget.Services
             }
         }
 
-        public Dictionary<string, decimal> CalculateMonthlyExpense()
+        public Dictionary<string, decimal?> CalculateMonthlyExpense()
         {
             using (var ctx = new ApplicationDbContext())
             {
 
-                Dictionary<string, decimal> dictMonthySum = new Dictionary<string, decimal>();
+                Dictionary<string, decimal?> dictMonthySum = new Dictionary<string, decimal?>();
 
 
-                decimal foodSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Food" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -7))).Select(cat => cat.Amount).Sum();
+                decimal? grocerySum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Grocery" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -7))).Select(cat => cat.Amount).Sum();
 
-                decimal shoppingSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Shopping" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -7))).Select(cat => cat.Amount).Sum();
+                decimal? shoppingSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Shopping" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -7))).Select(cat => cat.Amount).Sum();
 
-                decimal travelSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Travel" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -7))).Select(cat => cat.Amount).Sum();
+                decimal? travelSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Travel" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -7))).Select(cat => cat.Amount).Sum();
 
-                decimal healthSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Health" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -7))).Select(cat => cat.Amount).Sum();
+                decimal? healthSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Health" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -7))).Select(cat => cat.Amount).Sum();
 
-                dictMonthySum.Add("Food", foodSum);
+                decimal? rentSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Rent" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -7))).Select(cat => cat.Amount).Sum();
+
+                decimal? utilitiesSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Utilities" && (cat.CreatedUtc > DbFunctions.AddMonths(DateTime.Now, -7))).Select(cat => cat.Amount).Sum();
+
+
+                dictMonthySum.Add("Grocery", grocerySum);
                 dictMonthySum.Add("Shopping", shoppingSum);
                 dictMonthySum.Add("Travel", travelSum);
+                dictMonthySum.Add("Rent", rentSum);
                 dictMonthySum.Add("Health", healthSum);
+                dictMonthySum.Add("Utilities", utilitiesSum);
 
                 return dictMonthySum;
-
 
             }
         }
 
-        public Dictionary<string, decimal> CalculateWeeklyExpense()
+        public Dictionary<string, decimal?> CalculateWeeklyExpense()
         {
             using (var ctx = new ApplicationDbContext())
             {
 
-                Dictionary<string, decimal> dictWeeklySum = new Dictionary<string, decimal>();
+                Dictionary<string, decimal?> dictWeeklySum = new Dictionary<string, decimal?>();
 
-                decimal foodSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Food" && (cat.CreatedUtc > DbFunctions.AddDays(DateTime.Now, -7)))
+                decimal? grocerySum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Grocery" && (cat.CreatedUtc > DbFunctions.AddDays(DateTime.Now, -28)))
                     .Select(cat => cat.Amount)
                     .Sum();
 
-                decimal shoppingSum = ctx.Expenses.Where
-                   (cat => cat.Category.ExpenseCategoryName == "Shopping" && (cat.CreatedUtc > DbFunctions.AddDays(DateTime.Now, -7)))
+                decimal? shoppingSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Shopping" && (cat.CreatedUtc > DbFunctions.AddDays(DateTime.Now, -28)))
                    .Select(cat => cat.Amount)
                    .Sum();
 
-                decimal travelSum = ctx.Expenses.Where
-                   (cat => cat.Category.ExpenseCategoryName == "Travel" && (cat.CreatedUtc > DbFunctions.AddDays(DateTime.Now, -7)))
+                decimal? travelSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Travel" && (cat.CreatedUtc > DbFunctions.AddDays(DateTime.Now, -28)))
                    .Select(cat => cat.Amount)
                    .Sum();
 
-                decimal healthSum = ctx.Expenses.Where
-                   (cat => cat.Category.ExpenseCategoryName == "Health" && (cat.CreatedUtc > DbFunctions.AddDays(DateTime.Now, -7)))
+                decimal? healthSum = ctx.Expenses.Where
+                   (cat => cat.Category.ExpenseCategoryName == "Health" && (cat.CreatedUtc > DbFunctions.AddDays(DateTime.Now, -28)))
                    .Select(cat => cat.Amount)
                    .Sum();
 
-                dictWeeklySum.Add("Food", foodSum);
+                decimal? rentSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Rent" && (cat.CreatedUtc > DbFunctions.AddDays(DateTime.Now, -28)))
+                   .Select(cat => cat.Amount)
+                   .Sum();
+
+                decimal? utilitiesSum = ctx.Expenses.Where(cat => cat.Category.ExpenseCategoryName == "Utilities" && (cat.CreatedUtc > DbFunctions.AddDays(DateTime.Now, -28)))
+                   .Select(cat => cat.Amount)
+                   .Sum();
+
+                dictWeeklySum.Add("Grocery", grocerySum);
                 dictWeeklySum.Add("Shopping", shoppingSum);
                 dictWeeklySum.Add("Travel", travelSum);
                 dictWeeklySum.Add("Health", healthSum);
+                dictWeeklySum.Add("Rent", rentSum);
+                dictWeeklySum.Add("Utilities", utilitiesSum);
+
 
                 return dictWeeklySum;
             }

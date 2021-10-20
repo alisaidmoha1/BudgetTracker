@@ -1,31 +1,63 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<br />
+<div style="background:transparent !important" class="jumbotron cont">
+    <h1>Welcome!</h1>
+    <p>Track household and personal expenses to help stick to goals for monthly spending and savings.</p>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <div id="container" style="height: 400px"></div>
+
+    <script>
+
+        Highcharts.chart('container', {
+
+            title: {
+                text: 'Cash Flow'
+            },
+
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            series: [{
+                name: 'Income',
+                data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+            },
+            {
+                name: 'Expense',
+                data: [9.9, 71.5, 26.4, 109.2, 144.0, 186.0, 140.6, 18.5, 116.4, 194.1, 40.6, 34.4]
+            }
+
+            ]
+        });
+
+    </script>
+
+    <p>*This is a dummy data, its a future feature for the app.</p>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2> How to use the App</h2>
+                <p>
+                    Before creating Expense or Income you need to create a category. For example "Grocery, Rent, Salary" and so on. In the navigational menu bar above choose Expense or Income. You should see the dropdown menu. You have two options to create a category or add Expense or Income.
+                </p>
+                <p>In the Expense or Income pages you will have Expense Report and Income Report. </p>
+            
+                <h2> Our Mission</h2>
+                <p>
+                    Tracking your spending is often the first step in getting your finances in order. By understanding what you spend money on and how much you spend, you can see exactly where your cash is going and areas where you can cut back.
+                   
+                </p>
+                <p> It’s easy to make this part of your everyday routine thanks to expense tracker apps that help you manage your money on the go.</p>
+            </div>
+            <div class="col-md-6">
+                <img src="~/Content/themes/base/images/income.JPG" class="img-responsive img-rounded" alt="income"/>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+</section>

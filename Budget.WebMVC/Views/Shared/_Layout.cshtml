@@ -7,10 +7,11 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/Site.css")
     @Scripts.Render("~/bundles/modernizr")
-
+<link href="~/Content/Site.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body class="bg">
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -18,23 +19,48 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink(
+    " ",
+    "Index",
+    "Home",
+    null,
+    new
+    {
+        style = "background: url('" + Url.Content("~/Content/themes/base/images/logo__2_-removebg-preview (1).png") + "') no-repeat center right; display:block; height:75px; width:160px;"
+    }
+)
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+
+
+
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Expense Category", "Index", "ExpenseCategory")</li>
-                        <li>@Html.ActionLink("Income Category", "Index", "IncomeCategory")</li>
-                        <li>@Html.ActionLink("Expenses", "Index", "Expense")</li>
-                        <li>@Html.ActionLink("Income", "Index", "Income")</li>
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Expense <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="dropdown-item">@Html.ActionLink("Expense Category", "Index", "ExpenseCategory")</li>
+                                <li class="dropdown-item">@Html.ActionLink("Add Expenses", "Index", "Expense")</li>
+                            </ul>
+                        </li>
+
+                        <li class=" dropdown" role="menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Income<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item">@Html.ActionLink("Income Category", "Index", "IncomeCategory")</li>
+                                <li class="dropdown-item">@Html.ActionLink("Add Income", "Index", "Income")</li>
+                            </ul>
+                        </li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     }
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+
                 </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+                            @Html.Partial("_LoginPartial")
+</div>
         </div>
     </div>
     <div class="container body-content">
